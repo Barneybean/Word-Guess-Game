@@ -1,0 +1,20 @@
+body{
+    background: url("../images/background.png");
+}
+
+.container{
+    margin:0 auto;
+    border:5px dashed whitesmoke;
+}
+.row{
+    border:5px dashed whitesmoke;
+}
+.row div{
+    border:5px dashed whitesmoke;
+}
+
+.mainbody img{
+    margin-top:10%;
+    margin-bottom:500px;
+    max-height: 100%;
+}
