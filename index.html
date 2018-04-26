@@ -11,22 +11,38 @@
   </head>
   <body>
     <div class="container">
-        <div class="row align-item-center">
+        <div class="row">
+        <!-- <div class="row align-item-center"> -->
             <div class="col-sm-12 header"> 
                 <!-- thats how we center image and make it fluid with bootstrap      -->
-                <img src="assets/images/hangman.jpg" class="rounded mx-auto d-block img-fluid" alt="Responsive image">
+                <img src="assets/images/hangman.jpg" class="head  d-block img-fluid rounded" alt="Responsive image">
+                <!-- <img src="assets/images/hangman.jpg" class="rounded mx-auto d-block img-fluid" alt="Responsive image"> -->
             </div>
         </div>
         <div class="row mainbody">
             <div class="col-sm-4">
-                <img src="assets/images/logo.jpg" class="img-fluid rounded mx-auto d-block" alt="Responsive image">
+                <img id="logo" src="assets/images/logo.jpg" class="img-fluid rounded mx-auto d-block" alt="Responsive image">
             </div>
             <div class="col-sm-8">
-                <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                <!-- <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
                      Start Playing
-                </button>
+                </button> -->
+                <div class="row words">
+                    <div class="col-sm">
+                        <h2 id="display"></h2>
+                    </div>
+                </div>
+                <div class="row letters">
+                    <div class="col-sm">
+                        <h2>Your Guess: <span id="selections"></span></p>
+                        <h2>Number of Guess Remaining: <span id="life"></span></h2>
+                        <h2>Wins: <span id="wins"></span></h2>
+                        <h1 id="last"></h1>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
   </body>
 </html>
