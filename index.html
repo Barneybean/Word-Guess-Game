@@ -15,7 +15,7 @@
         <!-- <div class="row align-item-center"> -->
             <div class="col-sm-12 header"> 
                 <!-- thats how we center image and make it fluid with bootstrap      -->
-                <img src="assets/images/hangman.jpg" class="head  d-block img-fluid rounded" alt="Responsive image">
+                <img src="assets/images/hangman.jpg" class="head mx-auto d-block img-fluid rounded" alt="Responsive image">
                 <!-- <img src="assets/images/hangman.jpg" class="rounded mx-auto d-block img-fluid" alt="Responsive image"> -->
             </div>
         </div>
@@ -23,18 +23,19 @@
             <div class="col-sm-4">
                 <img id="logo" src="assets/images/logo.jpg" class="img-fluid rounded mx-auto d-block" alt="Responsive image">
             </div>
-            <div class="col-sm-8">
-                <!-- <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-                     Start Playing
-                </button> -->
+            <div id="gameArea" class="col-sm-8">
                 <div class="row words">
+                    <button id="btn" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                        <strong>CLick Me To Start Playing </strong>
+                    </button>
                     <div class="col-sm">
                         <h2 id="display"></h2>
                     </div>
+                    <audio id="victory" src=assets/sound/happy.mp3></audio>
                 </div>
                 <div class="row letters">
                     <div class="col-sm">
-                        <h2>Your Guess: <span id="selections"></span></p>
+                        <h2>Your Guess: <span id="selections"> </span></h2>
                         <h2>Number of Guess Remaining: <span id="life"></span></h2>
                         <h2>Wins: <span id="wins"></span></h2>
                         <h1 id="last"></h1>

@@ -22,6 +22,10 @@ body{
     max-height: 100%;
 }
 
+#gameArea{
+    color:white;
+}
+
 .words{
     height:40%;
 }
