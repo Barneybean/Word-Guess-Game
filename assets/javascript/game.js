@@ -1,87 +1,98 @@
-var wordList=["mount", "denali","bike","belongs to","the","prince","william"];
+var wordList=["the","bike","mount","denali","prince","william","belongs to"];
 var guess=[];
-var underScore=[];
-var wins=0;
-var singleWord=wordList[Math.floor(Math.random()*wordList.length)];
-var life=15;
+var correctInputSoFar=[];
+var life;
+var wins;
+var singleWord;
 
-function printunderdash(){
+
+function printunderdash() {
     for (i=0; i<singleWord.length; i++){
         if (singleWord[i] === " ") {
-            underScore.push(" ");
+            correctInputSoFar.push(" ");
         }
         else{
-        underScore.push("_");
+        correctInputSoFar.push("_");
         };
     };
-    document.getElementById("display").innerHTML=underScore;
+    document.getElementById("display").innerHTML=correctInputSoFar;
 }
 
-function playAudio(){
+function playAudio() {
     document.getElementById("victory").play();
 }
-function pauseAudio(){
+function pauseAudio() {
     document.getElementById("victory").pause();
 }
 
-// click to start
-document.getElementById('btn').addEventListener("click", function (){
-    underScore=[];
+// to reset game
+function reset() {
+    life=15;
+    wins=0;
+    correctInputSoFar=[];
+    guess=[];
+    singleWord=wordList[Math.floor(Math.random()*wordList.length)];
     printunderdash(); 
+    pauseAudio();
     document.getElementById("life").innerHTML=life;
     document.getElementById("wins").innerHTML=wins;
-    pauseAudio();
+    document.getElementById("logo").src="assets/images/logo.jpg";
+}
+
+// click to start
+document.getElementById('btn').addEventListener("click", function () {
+   reset();
+   document.getElementById("selections").innerHTML=guess;
 });
 
-document.onkeyup=function(hangman){
-    // take away a life for every user input
-    life--;
-    document.getElementById("life").innerHTML=life;
+document.onkeyup=function(hangman) {
+    pauseAudio();
     var userInput=hangman.key;
      // to find index of all matching letters
     var allMatch=[];
+
     guess.push(userInput.toUpperCase());
     // guess.forEach(function (element){element=element.toUpperCase();});  ???????
     document.getElementById("selections").innerHTML=guess;
 
+    // to replace matching letters
     for (var j=0; j<singleWord.length;j++) {
         if(singleWord[j]===userInput) {
             allMatch.push(j);
         }
     }
     for (var e=0; e<allMatch.length; e++) {
-        underScore[allMatch[e]]=userInput;
+        correctInputSoFar[allMatch[e]]=userInput;
     }
        
-    document.getElementById("display").innerHTML=underScore;
+    document.getElementById("display").innerHTML=correctInputSoFar;
 
-    if ((!underScore.includes("_")) && (life > 0)) {
-        // arrays cant be compared to each other
-            wins++;
-            document.getElementById("wins").innerHTML=wins+"<br> click to start a new Game";
-            playAudio();
-            // play music and reset
+    if (life>0) {
+        // complete word - win
+        if (!correctInputSoFar.includes("_")) {
+            // arrays cant be compared to each other
+                wins++;
+                document.getElementById("wins").innerHTML=wins+"<br> click to start a new Game";
+                playAudio();
+                correctInputSoFar=[];
+                singleWord=wordList[Math.floor(Math.random()*wordList.length)];
+                printunderdash();
+                guess=[];
+                document.getElementById("selections").innerHTML=guess;
+                life=15;
+                document.getElementById("life").innerHTML=life;
+                // play music and reset
+        }
+        // word not complete - continue
+        else {
+           life--;
+           document.getElementById("life").innerHTML=life;
+        }
     }
-    else if((underScore.includes("_")) && (life <=0)) {
-        // dead
-        life=15;
-        underScore=[];
-        guess=[];
-        document.getElementById("last").innerHTML="Last Answer is: "+singleWord+" <br>click to start a new Game";
-        singleWord=wordList[Math.floor(Math.random()*wordList.length)];
-        document.getElementById("logo").src="assets/images/tryagain.jpg";
-        // dontwork
-    }
-
-    // else if((underScore.includes("_")) && (life >0)) {
-    //     // still alive 
-        
-    // }
-
     else {
-        
-        
-        // document.getElementById("life").innerHTML=life;
+        document.getElementById("last").innerHTML="Last Wrong Answer is: "+singleWord+" <br>click to start a new Game";
+        document.getElementById("logo").src="assets/images/tryagain.jpg";
+        document.getElementById("life").innerHTML=0;
+        document.getElementById("selections").innerHTML=" ";
     }
-    
-}
+};
