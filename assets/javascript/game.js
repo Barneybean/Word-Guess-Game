@@ -4,6 +4,8 @@ var correctInputSoFar=[];
 var life;
 var wins;
 var singleWord;
+var alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
 
 
 function printunderdash() {
@@ -49,6 +51,8 @@ document.onkeyup=function(hangman) {
     pauseAudio();
     var userInput=hangman.key;
      // to find index of all matching letters
+    if (!alphabet.includes(userInput)) return;
+     
     var allMatch=[];
 
     guess.push(userInput.toUpperCase());
@@ -64,7 +68,7 @@ document.onkeyup=function(hangman) {
     for (var e=0; e<allMatch.length; e++) {
         correctInputSoFar[allMatch[e]]=userInput;
     }
-       
+    
     document.getElementById("display").innerHTML=correctInputSoFar;
 
     if (life>0) {
@@ -72,7 +76,7 @@ document.onkeyup=function(hangman) {
         if (!correctInputSoFar.includes("_")) {
             // arrays cant be compared to each other
                 wins++;
-                document.getElementById("wins").innerHTML=wins+"<br> click to start a new Game";
+                document.getElementById("wins").innerHTML=wins+"<br>Enter New Letter <br> or <br> click to start a new Game";
                 playAudio();
                 correctInputSoFar=[];
                 singleWord=wordList[Math.floor(Math.random()*wordList.length)];
@@ -85,14 +89,16 @@ document.onkeyup=function(hangman) {
         }
         // word not complete - continue
         else {
-           life--;
-           document.getElementById("life").innerHTML=life;
+        life--;
+        document.getElementById("life").innerHTML=life;
         }
     }
     else {
-        document.getElementById("last").innerHTML="Last Wrong Answer is: "+singleWord+" <br>click to start a new Game";
+        document.getElementById("wins").innerHTML=wins;
+        document.getElementById("last").innerHTML="Answer is: "+"<h3>"+singleWord+"<h3>"+" <br>click to start a new Game";
         document.getElementById("logo").src="assets/images/tryagain.jpg";
         document.getElementById("life").innerHTML=0;
         document.getElementById("selections").innerHTML=" ";
     }
+     
 };
