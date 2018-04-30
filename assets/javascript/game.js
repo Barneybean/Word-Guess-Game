@@ -4,6 +4,7 @@ var correctInputSoFar=[];
 var life;
 var wins;
 var singleWord;
+var userInput;
 var alphabet=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 
 
@@ -42,15 +43,9 @@ function reset() {
 }
 
 // click to start
-document.getElementById('btn').addEventListener("click", function () {
-   reset();
-   document.getElementById("selections").innerHTML=guess;
-});
 
-document.onkeyup=function(hangman) {
-    pauseAudio();
-    var userInput=hangman.key;
-     // to find index of all matching letters
+
+function checkInput() {
     if (!alphabet.includes(userInput)) return;
      
     var allMatch=[];
@@ -70,22 +65,24 @@ document.onkeyup=function(hangman) {
     }
     
     document.getElementById("display").innerHTML=correctInputSoFar;
+};
 
+function completeRound() {
     if (life>0) {
         // complete word - win
         if (!correctInputSoFar.includes("_")) {
             // arrays cant be compared to each other
-                wins++;
-                document.getElementById("wins").innerHTML=wins+"<br>Enter New Letter <br> or <br> click to start a new Game";
-                playAudio();
-                correctInputSoFar=[];
-                singleWord=wordList[Math.floor(Math.random()*wordList.length)];
-                printunderdash();
-                guess=[];
-                document.getElementById("selections").innerHTML=guess;
-                life=15;
-                document.getElementById("life").innerHTML=life;
-                // play music and reset
+            wins++;
+            document.getElementById("wins").innerHTML=wins+"<br>Enter New Letter <br> or <br> click to start a new Game";
+            playAudio();
+            correctInputSoFar=[];
+            singleWord=wordList[Math.floor(Math.random()*wordList.length)];
+            printunderdash();
+            guess=[];
+            document.getElementById("selections").innerHTML=guess;
+            life=15;
+            document.getElementById("life").innerHTML=life;
+            // play music and reset
         }
         // word not complete - continue
         else {
@@ -100,5 +97,19 @@ document.onkeyup=function(hangman) {
         document.getElementById("life").innerHTML=0;
         document.getElementById("selections").innerHTML=" ";
     }
-     
 };
+
+document.getElementById('btn').addEventListener("click", function () {
+    reset();
+    document.getElementById("selections").innerHTML=guess;
+});
+
+document.onkeyup=function(hangman) {
+    pauseAudio();
+    userInput=hangman.key;
+     // to find index of all matching letters
+    checkInput();
+    completeRound();
+
+};
+
